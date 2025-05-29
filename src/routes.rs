@@ -19,14 +19,6 @@ pub fn games_routes(db: Db) -> impl Filter<Extract = impl Reply, Error = Rejecti
         .or(games_delete(db))
 }
 
-// `GET /games?offset=3&limit=5`
-pub fn games_list(db: Db) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
-    warp::path!("games")
-        .and(warp::get())
-        .and(custom_filters::list_options())
-        .and(custom_filters::with_db(db))
-        .and_then(handlers::list_games)
-}
 
 // `POST /games`
 pub fn games_create(db: Db) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
